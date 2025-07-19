@@ -39,7 +39,7 @@
         v-if="item === 'siblingNode'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasRoot || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasRoot || hasGeneralization || isNotCreator || selectMore
         }"
         @click="$bus.$emit('execCommand', 'INSERT_NODE')"
       >
@@ -50,7 +50,7 @@
         v-if="item === 'childNode'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasGeneralization || isNotCreator || selectMore
         }"
         @click="$bus.$emit('execCommand', 'INSERT_CHILD_NODE')"
       >
@@ -61,7 +61,7 @@
         v-if="item === 'deleteNode'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0
+          disabled: activeNodes.length <= 0 || isNotCreator || selectMore
         }"
         @click="$bus.$emit('execCommand', 'REMOVE_NODE')"
       >
@@ -72,7 +72,7 @@
         v-if="item === 'image'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0
+          disabled: activeNodes.length <= 0 || isNotCreator || selectMore
         }"
         @click="$bus.$emit('showNodeImage')"
       >
@@ -83,7 +83,7 @@
         v-if="item === 'icon'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0
+          disabled: activeNodes.length <= 0 || isNotCreator || selectMore
         }"
         @click="showNodeIcon"
       >
@@ -94,7 +94,7 @@
         v-if="item === 'link'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0
+          disabled: activeNodes.length <= 0 || isNotCreator || selectMore
         }"
         @click="$bus.$emit('showNodeLink')"
       >
@@ -105,7 +105,7 @@
         v-if="item === 'note'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0
+          disabled: activeNodes.length <= 0 || isNotCreator || selectMore
         }"
         @click="$bus.$emit('showNodeNote')"
       >
@@ -116,7 +116,7 @@
         v-if="item === 'tag'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0
+          disabled: activeNodes.length <= 0 || isNotCreator || selectMore
         }"
         @click="$bus.$emit('showNodeTag')"
       >
@@ -127,7 +127,7 @@
         v-if="item === 'summary'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasRoot || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasRoot || hasGeneralization || isNotCreator || selectMore
         }"
         @click="$bus.$emit('execCommand', 'ADD_GENERALIZATION')"
       >
@@ -138,7 +138,7 @@
         v-if="item === 'associativeLine'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasGeneralization || isNotCreator || selectMore
         }"
         @click="$bus.$emit('createAssociativeLine')"
       >
@@ -149,7 +149,7 @@
         v-if="item === 'formula'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasGeneralization || isNotCreator || selectMore
         }"
         @click="showFormula"
       >
@@ -160,7 +160,7 @@
         v-if="item === 'attachment'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasGeneralization || isNotCreator || selectMore
         }"
         @click="selectAttachmentFile"
       >
@@ -171,7 +171,7 @@
         v-if="item === 'outerFrame'"
         class="toolbarBtn"
         :class="{
-          disabled: activeNodes.length <= 0 || hasGeneralization
+          disabled: activeNodes.length <= 0 || hasGeneralization || isNotCreator || selectMore
         }"
         @click="$bus.$emit('execCommand', 'ADD_OUTER_FRAME')"
       >
