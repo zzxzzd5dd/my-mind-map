@@ -1,20 +1,20 @@
 <template>
-  <div class="imgUploadContainer">
-    <div class="imgUploadPanel">
+  <div class="attachmentUploadContainer">
+    <div class="attachmentUploadPanel">
       <div class="upBtn" v-if="!value">
         <label
-          for="imgUploadInput"
-          class="imgUploadInputArea"
+          for="attachmentUploadInput"
+          class="attachmentUploadInputArea"
           @dragenter.stop.prevent
           @dragover.stop.prevent
           @drop.stop.prevent="onDrop"
-          >点击此处选择图片、或拖动图片到此</label
+          >点击此处选择文件、或拖动文件到此</label
         >
         <input
           type="file"
           accept="image/*"
-          id="imgUploadInput"
-          @change="onImgUploadInputChange"
+          id="attachmentUploadInput"
+          @change="onAttachmentUploadInputChange"
         />
       </div>
       <div v-if="value" class="uploadInfoBox">
@@ -22,7 +22,7 @@
           class="previewBox"
           :style="{ backgroundImage: `url('${value}')` }"
         ></div>
-        <span class="delBtn el-icon-close" @click="deleteImg"></span>
+        <span class="delBtn el-icon-close" @click="deleteAttachment"></span>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: 'ImgUpload',
+  name: 'AttachmentUpload',
   model: {
     prop: 'value',
     event: 'change'
@@ -52,9 +52,9 @@ export default {
      * @Date: 2019-12-22 19:47:19
      * @Desc: 图片选择事件
      */
-    onImgUploadInputChange(e) {
+    onAttachmentUploadInputChange(e) {
       let file = e.target.files[0]
-      this.selectImg(file)
+      this.selectAttachment(file)
     },
 
     /**
@@ -65,7 +65,7 @@ export default {
     onDrop(e) {
       let dt = e.dataTransfer
       let file = dt.files && dt.files[0]
-      this.selectImg(file)
+      this.selectAttachment(file)
     },
 
     /**
@@ -73,7 +73,7 @@ export default {
      * @Date: 2021-06-06 16:56:14
      * @Desc: 选择图片
      */
-    selectImg(file) {
+    selectAttachment(file) {
       this.file = file
       let fr = new FileReader()
       fr.readAsDataURL(file)
@@ -82,36 +82,13 @@ export default {
       }
     },
 
-    /**
-     * @Author: 王林
-     * @Date: 2021-06-22 23:03:46
-     * @Desc: 获取图片大小
-     */
-    getSize() {
-      return new Promise(resolve => {
-        let img = new Image()
-        img.src = this.value
-        img.onload = () => {
-          resolve({
-            width: img.width,
-            height: img.height
-          })
-        }
-        img.onerror = () => {
-          resolve({
-            width: 0,
-            height: 0
-          })
-        }
-      })
-    },
 
     /**
      * @Author: 王林
      * @Date: 2021-06-06 21:59:57
      * @Desc: 删除图片
      */
-    deleteImg() {
+    deleteAttachment() {
       this.$emit('change', '')
       this.file = null
       console.log('删除图片')

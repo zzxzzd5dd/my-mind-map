@@ -118,8 +118,8 @@ export default {
         'tag',
         'summary',
         'associativeLine',
-        'formula',
-        // 'attachment',
+        // 'formula',
+        'attachment',
         'outerFrame',
         'annotation'
       ],

@@ -473,6 +473,11 @@ export default {
 
       tooltipContent += '</div>'
 
+      // 清除之前的定时器（如果存在）
+      if (this.tooltipTimer) {
+        clearTimeout(this.tooltipTimer)
+      }
+
       // 创建或更新提示框元素
       let tooltip = document.getElementById('node-tooltip')
       if (!tooltip) {
@@ -505,6 +510,14 @@ export default {
       if (tooltipRect.bottom > screenHeight) {
         tooltip.style.top = (e.clientY - tooltipRect.height - 5) + 'px'
       }
+      // 设置20秒后自动隐藏的定时器
+      this.tooltipTimer = setTimeout(() => {
+        const tooltip = document.getElementById('node-tooltip')
+        if (tooltip) {
+          tooltip.style.display = 'none'
+        }
+      }, 2000) // 20秒 = 20000毫秒
+
     },
     // 隐藏节点悬浮提示
     hideNodeTooltip() {
@@ -628,6 +641,23 @@ export default {
           else
             return true // 允许编辑
         },
+        beforeDeleteNodeImg: async () =>{
+          // 检查是否允许删除节点图片
+          const shouldCancel = await showConfirmDialog('确定要删除这张图片吗？')  
+          return shouldCancel
+          // console.log('beforeDeleteNodeImg@@@@@', this.userInfo)
+          // if (node.nodeData.data._isSystemDefault || node.nodeData.data.is_system_default) {
+          //   this.$message.warning('系统默认节点不能删除图片')
+          //   return true // 阻止删除
+          // } else if (node.nodeData.data._creatorPoliceNumber && 
+          //     node.nodeData.data._creatorPoliceNumber !== this.userInfo?.police_number) {
+          //   this.$message.warning('您没有权限删除此节点的图片')
+          //   return true // 阻止删除
+          // }
+          // console.log('beforeDeleteNodeImg@@@@@', this.userInfo)
+          // return false // 允许删除
+        },
+        
       //   beforeShortcutRun: (key, activeNodeList) => {
       //   // 处理快捷键事件,对执行事件无效
       //   for (const node of activeNodeList) {
@@ -912,6 +942,19 @@ export default {
               const data={
                 nodeData: nodeData
               }
+              if(nodeData.image) {
+                // 删除图片
+                await api.deleteImage({
+                  node_uid: nodeData.uid
+                })
+              }
+              if(nodeData.attachmentUrl) {
+                // 删除附件
+                await api.deleteAttachment({
+                  node_uid: nodeData.uid
+                })
+              }
+              
               const res = await api.deleteNodeData(data)
 
             }

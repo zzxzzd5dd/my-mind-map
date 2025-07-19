@@ -105,6 +105,7 @@ export default {
     async confirm() {
       try {
         // 删除图片
+        console.log('img--------:', this.img)
         if (!this.img && !this.imgUrl) {
           this.cancel()
           this.activeNodes.forEach(node => {
@@ -117,8 +118,18 @@ export default {
         if (this.img) {
           img = this.img
           res = await this.$refs.ImgUpload.getSize()
+            // 获取原文件名
+          let originalFileName = ''
+          if (this.$refs.ImgUpload.file && this.$refs.ImgUpload.file.name) {
+            // 从文件对象获取原始文件名
+            originalFileName = this.$refs.ImgUpload.file.name
+            console.log('原始文件名:', originalFileName)
+            this.imgTitle = this.imgTitle || originalFileName
+          }
           const { data } = await api.uploadImg({
-            imgData: img
+            imgData: img,
+            node_uid: this.activeNodes[0].getData().uid,
+            imgTitle: this.imgTitle,
           })
           img = data
         } else if (this.imgUrl) {

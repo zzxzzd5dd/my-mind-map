@@ -138,3 +138,19 @@ export const deleteNodeData = (data = {}) => {
 export const createBatchNodeData = (data = {}) => {
   return http.post('/createBatchNodeData', data)
 }
+
+// 上传文件
+export const uploadAttachment = data => {
+  if (useMock) {
+    return getMockData('uploadAttachment', data)
+  }
+  return http.post('/uploadAttachment', data)
+}
+
+export const deleteAttachment = (data = {}) => {
+  return http.post('/deleteAttachment', data)
+}
+
+export const deleteImage= (data = {}) => {
+  return http.post('/deleteImage', data)
+}

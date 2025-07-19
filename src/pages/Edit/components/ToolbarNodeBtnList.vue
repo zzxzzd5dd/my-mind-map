@@ -163,6 +163,8 @@
           disabled: activeNodes.length <= 0 || hasGeneralization || isNotCreator || selectMore
         }"
         @click="selectAttachmentFile"
+
+        
       >
         <span class="icon iconfont iconfujian"></span>
         <span class="text">{{ $t('toolbar.attachment') }}</span>
@@ -220,7 +222,8 @@ export default {
   computed: {
     ...mapState({
       isDark: state => state.localConfig.isDark,
-      supportMark: state => state.supportMark
+      supportMark: state => state.supportMark,
+      userInfo: state => state.userInfo
     }),
     hasRoot() {
       return (
@@ -316,6 +319,7 @@ export default {
     // 选择附件
     selectAttachmentFile() {
       this.$bus.$emit('selectAttachment', this.activeNodes)
+      console.log('选择附件', this.activeNodes)
     },
 
     // 设置标记
